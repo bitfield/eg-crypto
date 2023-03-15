@@ -1,0 +1,2 @@
+! exec go test
+stdout 'want ''A'', got ''\['''
