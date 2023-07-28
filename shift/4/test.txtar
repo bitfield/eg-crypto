@@ -1,0 +1,13 @@
+exec go test
+stdin gophersquad.txt
+exec go run ./cmd/encipher/main.go -key 5
+stdout 'Ltumjw%Xvzfi'
+stdin ciphertext.txt
+exec go run ./cmd/encipher/main.go -key -5
+stdout 'Gopher Squad'
+
+-- gophersquad.txt --
+Gopher Squad
+
+-- ciphertext.txt --
+Ltumjw%Xvzfi

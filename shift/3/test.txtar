@@ -1,0 +1,7 @@
+exec go test
+stdin hello.txt
+exec go run ./cmd/encipher/main.go
+stdout 'Ifmmp-!xpsme'
+
+-- hello.txt --
+Hello, world

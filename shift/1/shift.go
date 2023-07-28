@@ -1,5 +1,5 @@
 package shift
 
-func Encipher(plaintext []byte) []byte {
+func Encipher(plaintext []byte) (ciphertext []byte) {
 	return nil
 }
