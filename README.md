@@ -1,6 +1,6 @@
-# Gopher Squad!
+# Gopher Squad 1: Cracking the Carbon Code
 
-This repository contains the code examples for the book [Gopher Squad!](https://bitfieldconsulting.com/books/), by John Arundel (coming soon).
+This repository contains the code examples for the book [Gopher Squad 1: Cracking the Carbon Code](https://bitfieldconsulting.com/books/), by John Arundel (coming soon).
 
 [![](img/cover.png)](https://bitfieldconsulting.com/books/)
 

@@ -1,2 +1,0 @@
-! exec go test
-stdout 'want ''B'', got ''A'''
