@@ -24,7 +24,7 @@ func Decipher(ciphertext []byte, key []byte) (plaintext []byte) {
 const MaxKeyLen = 32
 
 func Crack(ciphertext, crib []byte) (key []byte, err error) {
-	for k := 0; k < MaxKeyLen && k < len(ciphertext); k++ {
+	for k := 0; k < min(MaxKeyLen, len(ciphertext)); k++ {
 		for guess := 0; guess <= 255; guess++ {
 			result := ciphertext[k] - byte(guess)
 			if result == crib[k] {
@@ -37,4 +37,12 @@ func Crack(ciphertext, crib []byte) (key []byte, err error) {
 		}
 	}
 	return nil, errors.New("no key found")
+}
+
+// we won't need this from Go 1.21, when 'min' becomes built-in
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
