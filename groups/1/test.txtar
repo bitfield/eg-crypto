@@ -1,0 +1,11 @@
+exec go run main.go
+cmp stdout golden
+
+-- golden --
+This 
+messa
+ge ta
+kes e
+xactl
+y 35 
+bytes
