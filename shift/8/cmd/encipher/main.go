@@ -1,6 +1,8 @@
 package main
 
 import (
+	"crypto/cipher"
+	"crypto/rand"
 	"encoding/hex"
 	"flag"
 	"fmt"
@@ -23,13 +25,20 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	enc := shift.NewEncrypter(block)
 	plaintext, err := io.ReadAll(os.Stdin)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	plaintext = shift.Pad(plaintext, enc.BlockSize())
+	iv := make([]byte, shift.BlockSize)
+	_, err = rand.Read(iv)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+	os.Stdout.Write(iv)
+	enc := cipher.NewCBCEncrypter(block, iv)
+	plaintext = shift.Pad(plaintext, shift.BlockSize)
 	ciphertext := make([]byte, len(plaintext))
 	enc.CryptBlocks(ciphertext, plaintext)
 	os.Stdout.Write(ciphertext)

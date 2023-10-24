@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/cipher"
 	"encoding/hex"
 	"flag"
 	"fmt"
@@ -28,9 +29,10 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	plaintext := make([]byte, len(ciphertext))
-	dec := shift.NewDecrypter(block)
-	dec.CryptBlocks(plaintext, ciphertext)
+	iv := ciphertext[:shift.BlockSize]
+	plaintext := make([]byte, len(ciphertext)-shift.BlockSize)
+	dec := cipher.NewCBCDecrypter(block, iv)
+	dec.CryptBlocks(plaintext, ciphertext[shift.BlockSize:])
 	plaintext = shift.Unpad(plaintext, shift.BlockSize)
 	os.Stdout.Write(plaintext)
 }
