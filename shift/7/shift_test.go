@@ -201,3 +201,69 @@ func TestUnpad(t *testing.T) {
 		})
 	}
 }
+
+func TestCrack(t *testing.T) {
+	t.Parallel()
+	plaintext := []byte("This message is exactly 32 bytes")
+	ciphertext := []byte("Uijs message is exactly 32 bytes")
+	want := append([]byte{1, 1, 1}, bytes.Repeat([]byte{0}, 29)...)
+	got, err := shift.Crack(ciphertext, plaintext)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(want, got) {
+		t.Fatalf("want %x, got %x", want, got)
+	}
+}
+
+func TestNextCorrectlyIncrementsInputWithoutOverflow(t *testing.T) {
+	t.Parallel()
+	tcs := []struct {
+		input, want []byte
+	}{
+		{
+			input: []byte{0, 0, 0},
+			want:  []byte{1, 0, 0},
+		},
+		{
+			input: []byte{255, 0, 0},
+			want:  []byte{0, 1, 0},
+		},
+		{
+			input: []byte{255, 255, 0},
+			want:  []byte{0, 0, 1},
+		},
+		{
+			input: []byte{255, 255, 254},
+			want:  []byte{0, 0, 255},
+		},
+	}
+	for _, tc := range tcs {
+		t.Run(fmt.Sprintf("%x", tc.input), func(t *testing.T) {
+			got, err := shift.Next(tc.input)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if !bytes.Equal(tc.want, got) {
+				t.Errorf("want %v, got %v", tc.want, got)
+			}
+		})
+	}
+}
+
+func TestNextReturnsErrorWhenNextKeyWouldOverflow(t *testing.T) {
+	t.Parallel()
+	_, err := shift.Next([]byte{255, 255, 255})
+	if err == nil {
+		t.Fatal("want error on key overflow, but got nil")
+	}
+}
+
+func BenchmarkCrack(b *testing.B) {
+	plaintext := []byte("This message is exactly 32 bytes")
+	ciphertext := []byte("Uiis message is exactly 32 bytes")
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		_, _ = shift.Crack(ciphertext, plaintext)
+	}
+}

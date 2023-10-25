@@ -111,3 +111,33 @@ func Unpad(data []byte, blockSize int) []byte {
 	n := int(data[len(data)-1])
 	return data[:len(data)-n]
 }
+
+func Next(key []byte) ([]byte, error) {
+	for i := range key {
+		if key[i] < 255 {
+			key[i]++
+			return key, nil
+		}
+		key[i] = 0
+	}
+	return nil, errors.New("overflow")
+}
+
+func Crack(ciphertext, crib []byte) (key []byte, err error) {
+	plaintext := make([]byte, len(crib))
+	key = make([]byte, BlockSize)
+	for {
+		block, err := NewCipher(key)
+		if err != nil {
+			panic(err)
+		}
+		block.Decrypt(plaintext, ciphertext[:len(crib)])
+		if bytes.Equal(crib, plaintext) {
+			return key, nil
+		}
+		key, err = Next(key)
+		if err != nil {
+			return nil, errors.New("no key found")
+		}
+	}
+}

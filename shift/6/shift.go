@@ -38,11 +38,3 @@ func Crack(ciphertext, crib []byte) (key []byte, err error) {
 	}
 	return nil, errors.New("no key found")
 }
-
-// we won't need this from Go 1.21, when 'min' becomes built-in
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
-}

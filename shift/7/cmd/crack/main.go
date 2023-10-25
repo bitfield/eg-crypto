@@ -26,6 +26,14 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	plaintext := shift.Decipher(ciphertext, key)
+	block, err := shift.NewCipher(key)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+	mode := shift.NewDecrypter(block)
+	plaintext := make([]byte, len(ciphertext))
+	mode.CryptBlocks(plaintext, ciphertext)
+	plaintext = shift.Unpad(plaintext, mode.BlockSize())
 	os.Stdout.Write(plaintext)
 }
