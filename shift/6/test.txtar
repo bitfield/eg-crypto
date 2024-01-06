@@ -1,15 +1,15 @@
-exec go test
-stdin gophersquad.txt
-exec go run ./cmd/encipher/main.go -key DEADBEEF
+go test
+stdin plaintext.txt
+go run ./cmd/encipher -key DEADBEEF
 stdin stdout
-exec go run ./cmd/decipher/main.go -key DEADBEEF
-stdout 'Gopher Squad'
+go run ./cmd/decipher -key DEADBEEF
+stdout 'THESE PRETZELS ARE MAKING ME THIRSTY'
 
 stdin tiger.txt
-exec go run ./cmd/encipher -key DEADBEEF
+go run ./cmd/encipher -key DEADBEEF
 stdin stdout
 go run ./cmd/crack -crib 'The tiger'
 stdout 'The tiger appears at its own pleasure.'
 
--- gophersquad.txt --
-Gopher Squad
+-- plaintext.txt --
+THESE PRETZELS ARE MAKING ME THIRSTY

@@ -1,4 +1,4 @@
-exec go run main.go
+go run .
 cmp stdout golden
 
 -- golden --

@@ -18,5 +18,4 @@ func TestHashLenReturnsExpectedResult(t *testing.T) {
 	if !bytes.Equal(want, got) {
 		t.Errorf("%s: want %x, got %x", input, want, got)
 	}
-	[]byte{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0f}
 }

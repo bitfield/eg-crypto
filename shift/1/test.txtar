@@ -1,2 +1,2 @@
-! exec go test
+! go test
 stdout 'want "IBM", got ""'

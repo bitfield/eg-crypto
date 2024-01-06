@@ -1,0 +1,7 @@
+go test
+stdin input.txt
+go run ./cmd/hash
+stdout '0000000000000025'
+
+-- input.txt --
+THESE PRETZELS ARE MAKING ME THIRSTY

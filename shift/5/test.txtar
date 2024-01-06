@@ -1,18 +1,18 @@
-exec go test
-stdin gophersquad.txt
-exec go run ./cmd/encipher/main.go -key 5
-stdout 'Ltumjw%Xvzfi'
+go test
+stdin plaintext.txt
+go run ./cmd/encipher -key 5
+stdout 'YMJXJ%UWJY_JQX%FWJ%RFPNSL%RJ%YMNWXY\^'
 stdin ciphertext.txt
-exec go run ./cmd/encipher/main.go -key -5
-stdout 'Gopher Squad'
+go run ./cmd/encipher -key -5
+stdout 'THESE PRETZELS ARE MAKING ME THIRSTY'
 stdin tiger.txt
-exec go run ./cmd/encipher -key 253
+go run ./cmd/encipher -key 253
 stdin stdout
 go run ./cmd/crack -crib 'The tiger'
 stdout 'The tiger appears at its own pleasure.'
 
--- gophersquad.txt --
-Gopher Squad
+-- plaintext.txt --
+THESE PRETZELS ARE MAKING ME THIRSTY
 
 -- ciphertext.txt --
-Ltumjw%Xvzfi
+YMJXJ%UWJY_JQX%FWJ%RFPNSL%RJ%YMNWXY^
