@@ -24,8 +24,8 @@ func Decipher(ciphertext []byte, key []byte) (plaintext []byte) {
 const MaxKeyLen = 32
 
 func Crack(ciphertext, crib []byte) (key []byte, err error) {
-	for k := 0; k < min(MaxKeyLen, len(ciphertext)); k++ {
-		for guess := 0; guess <= 255; guess++ {
+	for k := range min(MaxKeyLen, len(ciphertext)) {
+		for guess := range 256 {
 			result := ciphertext[k] - byte(guess)
 			if result == crib[k] {
 				key = append(key, byte(guess))

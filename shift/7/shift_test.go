@@ -263,7 +263,7 @@ func BenchmarkCrack(b *testing.B) {
 	plaintext := []byte("This message is exactly 32 bytes")
 	ciphertext := []byte("Uiis message is exactly 32 bytes")
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for range b.N {
 		_, _ = shift.Crack(ciphertext, plaintext)
 	}
 }

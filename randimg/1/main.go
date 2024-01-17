@@ -12,8 +12,8 @@ import (
 func main() {
 	width, height := 300, 300
 	img := image.NewNRGBA(image.Rect(0, 0, width, height))
-	for x := 0; x < width; x++ {
-		for y := 0; y < height; y++ {
+	for x := range width {
+		for y := range height {
 			img.Set(x, y, color.RGBA{
 				R: uint8(rand.Intn(256)),
 				G: uint8(rand.Intn(256)),
