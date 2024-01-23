@@ -14,5 +14,5 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	fmt.Printf("%x\n", hash.HashSum(data))
+	fmt.Printf("%x\n", hash.SumHash(data))
 }

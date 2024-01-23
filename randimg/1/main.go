@@ -5,7 +5,7 @@ import (
 	"image"
 	"image/color"
 	"image/png"
-	"math/rand"
+	"math/rand/v2"
 	"os"
 )
 
@@ -15,9 +15,9 @@ func main() {
 	for x := range width {
 		for y := range height {
 			img.Set(x, y, color.RGBA{
-				R: uint8(rand.Intn(256)),
-				G: uint8(rand.Intn(256)),
-				B: uint8(rand.Intn(256)),
+				R: uint8(rand.IntN(256)),
+				G: uint8(rand.IntN(256)),
+				B: uint8(rand.IntN(256)),
 				A: 255,
 			})
 		}

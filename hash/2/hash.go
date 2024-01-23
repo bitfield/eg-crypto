@@ -2,7 +2,7 @@ package hash
 
 import "encoding/binary"
 
-func HashSum(input []byte) []byte {
+func SumHash(input []byte) []byte {
 	digest := make([]byte, 8)
 	var sum uint64
 	for _, b := range input {
